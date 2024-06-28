@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import type {PropsWithChildren} from 'react';
+import type { PropsWithChildren } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -29,7 +29,7 @@ type SectionProps = PropsWithChildren<{
   title: string;
 }>;
 
-function Section({children, title}: SectionProps): React.JSX.Element {
+function Section({ children, title }: SectionProps): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
@@ -62,6 +62,8 @@ function App(): React.JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const PRE_HEADER_SIZE = 200;
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -69,8 +71,13 @@ function App(): React.JSX.Element {
         backgroundColor={backgroundStyle.backgroundColor}
       />
       <ScrollView
+        stickyHeaderIndices={[1]}
+        stickyHeaderHiddenOnScroll
+        contentInset={{ bottom: PRE_HEADER_SIZE }}
+        contentOffset={{ y: PRE_HEADER_SIZE, x: 0 }}
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
+        <View style={{ height: PRE_HEADER_SIZE, backgroundColor: 'red' }} />
         <Header />
         <View
           style={{
